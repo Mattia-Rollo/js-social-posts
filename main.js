@@ -93,11 +93,12 @@ for(let obj of posts) {
     
     let time = currentTime.getMonth() - created.getMonth();
     
+    
     console.log(time);
 
     let firstLetters = obj.author.name.split(' ').map(word => word[0]).join('');
 
-    let iconProfile = (obj.author.image == null) ? `<div class='profile-pic-default'><span>${firstLetters}</span></div>` :`<img class="profile-pic" src="${obj.author.image}" alt="Phil Mangione"> `;
+    let iconProfile = (obj.author.image == null) ? `<div class='profile-pic-default'><span>${firstLetters}</span></div>` :`<img class="profile-pic" src="${obj.author.image}" alt="${obj.author.name}"> `;
 
     postsHtml += `
     <div class="post">
@@ -119,7 +120,7 @@ for(let obj of posts) {
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="${obj.id}">
+                <a class="like-button  js-like-button" href="#nogo" data-postid="${obj.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -133,34 +134,54 @@ for(let obj of posts) {
     `;
 
 }
+
 container.innerHTML = postsHtml;
 
+const myLikePost = [];
 
 // console.log('Hello world'.split(' ').map(word => word[0]));
-const likesCounter = document.getElementsByClassName('js-likes-counter')
+const likeCounter = document.getElementsByClassName('js-likes-counter')
 const btnsLike = document.getElementsByClassName('js-like-button');
 
 for(let btn of btnsLike){
     let isLiked = false;
-    btn.addEventListener('click', function(){
-    console.log(isLiked);
-    if(!isLiked){
-    btn.classList.add('like-button--liked');
-    isLiked = true;
     // console.log(btn);
-    // console.log(btn.dataset.postid);
-    posts[this.dataset.postid-1].likes += 1;
-    // console.log(posts[this.dataset.postid-1].likes);
-    likesCounter[this.dataset.postid-1].innerHTML = posts[this.dataset.postid-1].likes;
-}else{
-    btn.classList.remove('like-button--liked')
-    posts[this.dataset.postid-1].likes -= 1;
-    isLiked = false;
-    likesCounter[this.dataset.postid-1].innerHTML = posts[this.dataset.postid-1].likes;
+    btn.addEventListener('click', function(){
+        
+    //value 
+    let dataPostid = btn.dataset.postid;
+    //
+    // console.log(dataPostid);
+    if(!isLiked){
+        btn.classList.add('like-button--liked');
+        isLiked = true;
+        // console.log(btn);
+        
+        posts[dataPostid-1].likes += 1;
+        
+        likeCounter[dataPostid-1].innerHTML = posts[dataPostid-1].likes;
+        
+        myLikePost.push(dataPostid);
+        // console.log(posts[this.dataset.postid-1].likes);
+        
+    }else{
+        isLiked = false;
+        btn.classList.remove('like-button--liked')
+        posts[dataPostid-1].likes -= 1;
+        likeCounter[dataPostid-1].innerHTML = posts[dataPostid-1].likes;
+        console.log(dataPostid);
+        let index = myLikePost.indexOf(dataPostid);
+        
+        if(myLikePost.includes(dataPostid)){
+            myLikePost.splice(index,1);
+        };
     }
+    console.log(isLiked);
+    console.log(myLikePost);
 }
 )
 }
+
 
 
 // function like(){

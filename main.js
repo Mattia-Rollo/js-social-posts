@@ -143,17 +143,15 @@ const btnsLike = document.getElementsByClassName('js-like-button');
 for(let btn of btnsLike){
     let isLiked = false;
     btn.addEventListener('click', function(){
+    console.log(isLiked);
     if(!isLiked){
     btn.classList.add('like-button--liked');
     isLiked = true;
-    console.log(btn);
-    console.log(btn.dataset.postid);
+    // console.log(btn);
+    // console.log(btn.dataset.postid);
     posts[this.dataset.postid-1].likes += 1;
-    console.log(posts[this.dataset.postid-1].likes);
+    // console.log(posts[this.dataset.postid-1].likes);
     likesCounter[this.dataset.postid-1].innerHTML = posts[this.dataset.postid-1].likes;
-    
-    
-    // posts[]
 }else{
     btn.classList.remove('like-button--liked')
     posts[this.dataset.postid-1].likes -= 1;

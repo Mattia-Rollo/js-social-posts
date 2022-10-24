@@ -38,7 +38,7 @@ const posts = [
     {
         "id": 2,
         "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
-        "media": "https://unsplash.it/600/400?image=112",
+        "media": "",
         "author": {
             "name": "Sofia Perlari",
             "image": "https://unsplash.it/300/300?image=10"
@@ -71,7 +71,7 @@ const posts = [
     {
         "id": 5,
         "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
-        "media": "https://unsplash.it/600/400?image=534",
+        "media": "",
         "author": {
             "name": "Alessandro Sainato",
             "image": null
@@ -86,9 +86,15 @@ const container = document.getElementById('container');
 
 let postsHtml = ''; 
 
-
 for(let obj of posts) {
     
+    let currentTime = new Date();
+    let created = new Date(obj.created);
+    
+    let time = currentTime.getMonth() - created.getMonth();
+    
+    console.log(time);
+
     let firstLetters = obj.author.name.split(' ').map(word => word[0]).join('');
 
     let iconProfile = (obj.author.image == null) ? `<div class='profile-pic-default'><span>${firstLetters}</span></div>` :`<img class="profile-pic" src="${obj.author.image}" alt="Phil Mangione"> `;
@@ -102,7 +108,7 @@ for(let obj of posts) {
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">${obj.author.name}</div>
-                <div class="post-meta__time">4 mesi fa</div>
+                <div class="post-meta__time">${time} mesi fa</div>
             </div>                    
         </div>
     </div>
@@ -113,7 +119,7 @@ for(let obj of posts) {
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="1">
+                <a class="like-button  js-like-button" href="#" data-postid="${obj.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -129,4 +135,6 @@ for(let obj of posts) {
 container.innerHTML = postsHtml;
 
 
-console.log('Hello world'.split(' ').map(word => word[0]));
+// console.log('Hello world'.split(' ').map(word => word[0]));
+
+const btnsLike = document.getElementsByClassName('js-like-button');

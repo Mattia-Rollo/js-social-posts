@@ -10,6 +10,10 @@ body {
     color: #050505;
     font-size: 100%;
 }
+.red {
+    background-color: red;
+    padding: 5px;
+}
 
 h1 {
     font-size: calc(1.5rem + 2vw);

@@ -33,7 +33,7 @@ const posts = [
             "image": "https://unsplash.it/300/300?image=15"
         },
         "likes": 80,
-        "created": "2021-06-25"
+        "created": "2022-06-25"
     },
     {
         "id": 2,
@@ -41,7 +41,7 @@ const posts = [
         "media": "",
         "author": {
             "name": "Sofia Perlari",
-            "image": "https://unsplash.it/300/300?image=10"
+            "image": null
         },
         "likes": 120,
         "created": "2021-09-03"
@@ -131,10 +131,48 @@ for(let obj of posts) {
     </div>            
 </div>
     `;
+
 }
 container.innerHTML = postsHtml;
 
 
 // console.log('Hello world'.split(' ').map(word => word[0]));
-
+const likesCounter = document.getElementsByClassName('js-likes-counter')
 const btnsLike = document.getElementsByClassName('js-like-button');
+
+for(let btn of btnsLike){
+    let isLiked = false;
+    btn.addEventListener('click', function(){
+    if(!isLiked){
+    btn.classList.add('like-button--liked');
+    isLiked = true;
+    console.log(btn);
+    console.log(btn.dataset.postid);
+    posts[this.dataset.postid-1].likes += 1;
+    console.log(posts[this.dataset.postid-1].likes);
+    likesCounter[this.dataset.postid-1].innerHTML = posts[this.dataset.postid-1].likes;
+    
+    
+    // posts[]
+}else{
+    btn.classList.remove('like-button--liked')
+    posts[this.dataset.postid-1].likes -= 1;
+    isLiked = false;
+    likesCounter[this.dataset.postid-1].innerHTML = posts[this.dataset.postid-1].likes;
+    }
+}
+)
+}
+
+
+// function like(){
+//     let isLiked;
+//     console.log(isLiked)
+//     if(!isLiked){
+//         isLiked = true;
+//     }else {
+//         isLiked = false;
+//     }
+    
+// }
+// like();

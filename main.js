@@ -126,7 +126,7 @@ for(let obj of posts) {
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${obj.likes}</b> persone
+                Piace a <b id="like-counter-${obj.id}" class="js-likes-counter">${obj.likes}</b> persone
             </div>
         </div> 
     </div>            
